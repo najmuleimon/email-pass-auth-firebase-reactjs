@@ -1,0 +1,22 @@
+Steps:
+1. go to console.firebase.google.com
+2. Add project > give a project name > continue
+3. turn off google analytics > continue > after creating project press continue > then we will redirect to our project setting console
+4. click on web icon
+5. Register for web app and give a project name > click register
+6. install firebase in my application => npm install firebase
+7. copy the initialize Firebase and begin using the SDKs code in to my app. 
+8. make a file name 'firebase.init.js' and paste the code here and 'export default app'
+9. Now we have to enable email-password native providers
+10. Go to firebase project console > authentication > get started
+11. click email-password > enable email-password > save
+12. go to firebase docs > build > authentication > web > get started
+13. In my App.js file copy the getAuth() method and import it 'const auth = getAuth(app);'
+14. go to firebase docs > build > authentication > web > password authentication
+15. Make a form with user email and password in App.js file and add click handler function with the input field
+16. Now make 2 hook useState() to set the email and password in the state
+17. Now in the submit function we use createUserWithEmailAndPassword() from firebase docs steps.
+18. To validate email and password we can follow the steps from react bootstrap validation
+
+19. To send user a verification email and reset password and set a user name => go to firebase docs > build > authentication > web > manage users
+(Send a user a verification email, Send a password reset email, Update a user's profile)
