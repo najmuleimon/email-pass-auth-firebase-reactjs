@@ -1,10 +1,10 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import app from './firebase.init';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const auth = getAuth(app);
 
@@ -44,11 +44,11 @@ function App() {
 
     // check form email and password validity
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-      console.log('checked')
-      // return;
-    }
+    // if (form.checkValidity() === false) {
+    //   event.stopPropagation();
+    //   console.log('checked')
+    //   return;
+    // }
 
     // check password should contain at least 1 special character
     if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
@@ -84,7 +84,6 @@ function App() {
         .then(userCredential => {
           const user = userCredential.user;
           console.log(user);
-          setUser(user);
         })
         .catch(error => {
           console.log(error);
@@ -119,6 +118,23 @@ function App() {
     sendPasswordResetEmail(auth, email)
     .then(() => {
       console.log('Email Send');
+    })
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      setUser(user)
+    })
+  },[])
+
+  // sign out
+  const handleSignOut = () => {
+    signOut(auth)
+    .then(() => {
+      console.log('signed out');
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 
@@ -172,8 +188,12 @@ function App() {
         </Button>
       </Form>
 
-      <h2>Name: {user.displayName}</h2>
-      <h3>Email: {user.email}</h3>
+      <h2>Name: {user?.displayName}</h2>
+      <h3>Email: {user?.email}</h3>
+      {user ?
+        <button onClick={handleSignOut} className='btn btn-primary'>Sign out</button>
+        : 'No user Logged in'
+      }
     </div>
   );
 }

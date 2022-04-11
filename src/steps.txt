@@ -20,3 +20,6 @@ Steps:
 
 19. To send user a verification email and reset password and set a user name => go to firebase docs > build > authentication > web > manage users
 (Send a user a verification email, Send a password reset email, Update a user's profile)
+
+20. after hosting steps my application live preview link = https://email-password-auth-141a6.web.app/
+(in firebase console > hosting > we can get the link)
